@@ -5,11 +5,14 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rb;
     [SerializeField]
+    private Animator _animator;
+    [SerializeField]
     private float _moveSpeed = 5f;
     [SerializeField]
     private float _jumpForce = 15f;
     [SerializeField]
     private float _desiredMoveSpeed = 0.0f;
+    private float _facingDirection = 0f;
     [SerializeField]
     private GroundCheckScript _groundCheck;
     private PlayerInput _playerInput;
@@ -37,10 +40,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _desiredMoveSpeed = _moveAction.ReadValue<Vector2>().x * _moveSpeed;
+
+
+
     }
     private void FixedUpdate()
     {
         _rb.linearVelocityX = _desiredMoveSpeed;
+        _animator.SetFloat("Speed", Mathf.Abs(_desiredMoveSpeed));
+        if(Mathf.Abs(_desiredMoveSpeed)>0.1f)
+        {
+            _facingDirection = (_desiredMoveSpeed > 0) ? 0f : 1f;
+        }
+        _animator.SetFloat("Speed", Mathf.Abs(_desiredMoveSpeed));
+        _animator.SetFloat("Direction", _facingDirection); 
+
 
     }
     private void OnJump(InputAction.CallbackContext context)
