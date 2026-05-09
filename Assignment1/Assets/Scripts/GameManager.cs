@@ -47,10 +47,7 @@ public class GameManager : MonoBehaviour
         UpdateScore();
     }
 
-    void Update()
-    {
 
-    }
     public void Generate()
     {
         for (float row = -2f; row < _rows - 2; row++)
